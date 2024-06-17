@@ -6,31 +6,31 @@
 
 ### Consultas de una sola tabla
 
-1. **Recuperar todas las líneas de productos con sus descripciones:**
+1. ***Recuperar todas las líneas de productos con sus descripciones:***
 
    ```sql
-   
+   SELECT productLine, productDescription FROM products;
    ```
 
-2. **Encontrar todos los empleados que trabajan en la oficina de 'San Francisco':**
-
-   ```sql
-   SELECT * FROM employees WHERE officeCode=1;
-   ```
-
-3. **Listar todas las órdenes que tienen un estado de 'Enviado':**
+2. ***Encontrar todos los empleados que trabajan en la oficina de 'San Francisco':***
 
    ```sql
    SELECT * FROM employees WHERE officeCode=1;
    ```
 
-4. **Obtener los detalles de todos los pagos realizados por el cliente con el número de cliente 103:**
+3. ***Listar todas las órdenes que tienen un estado de 'Enviado':***
+
+   ```sql
+   SELECT * FROM orders WHERE status='Shipped';
+   ```
+
+4. ***Obtener los detalles de todos los pagos realizados por el cliente con el número de cliente 103:***
 
    ```sql
     SELECT * FROM payments WHERE customerNumber=103;
    ```
 
-5. **Recuperar todos los clientes de 'USA' que tienen un límite de crédito superior a 50000:**
+5. ***Recuperar todos los clientes de 'USA' que tienen un límite de crédito superior a 50000:***
 
    ```sql
    SELECT * FROM customers WHERE country='USA' AND creditLimit>50000;
@@ -38,7 +38,7 @@
 
 ### Consultas de múltiples tablas
 
-1. **Listar todos los productos junto con las descripciones de sus líneas de productos:**
+1. ***Listar todos los productos junto con las descripciones de sus líneas de productos:***
 
    ```sql
     SELECT t1.*, t2.textDescription FROM products t1
@@ -46,19 +46,19 @@
     ON t1.productLine = t2.productLine;
    ```
 
-2. **Obtener los nombres y direcciones de correo electrónico de los empleados que reportan al empleado con el número de empleado 1143:**
+2. ***Obtener los nombres y direcciones de correo electrónico de los empleados que reportan al empleado con el número de empleado 1143:***
 
    ```sql
    SELECT CONCAT(firstName,lastName) AS 'name', email FROM employees WHERE reportsTo=1143;
    ```
 
-3. **Encontrar todas las órdenes realizadas por clientes de 'Francia':**
+3. ***Encontrar todas las órdenes realizadas por clientes de 'Francia':***
 
    ```sql
    SELECT * FROM orders INNER JOIN customers USING(customerNumber) WHERE country='France';
    ```
 
-4. **Listar el monto total de los pagos recibidos de cada cliente:**
+4. ***Listar el monto total de los pagos recibidos de cada cliente:***
 
    ```sql
    SELECT customerNumber, SUM(amount) FROM payments GROUP BY customerNumber;
@@ -80,19 +80,19 @@
 
 ### Consultas de una sola tabla
 
-1. **Obtener el promedio del límite de crédito de todos los clientes:**
+1. ***Obtener el promedio del límite de crédito de todos los clientes:***
 
    ```
    SELECT AVG(creditLimit) AS averageCreditLimit FROM customers;
    ```
 
-2. **Calcular el total de productos en stock:**
+2. ***Calcular el total de productos en stock:***
 
    ```
    SELECT COUNT(*) AS quantityInStock FROM products WHERE quantityInStock>0;
    ```
 
-3. **Encontrar el precio medio de compra de todos los productos:**
+3. ***Encontrar el precio medio de compra de todos los productos:***
 
    ```
    SELECT AVG(buyPrice) AS averageBuyPrice FROM products;
@@ -104,13 +104,13 @@
    SELECT country, COUNT(*) AS quantityOffices FROM offices GROUP BY country;
    ```
 
-5. **Calcular el total de pagos recibidos:**
+5. ***Calcular el total de pagos recibidos:***
 
    ```
    SELECT SUM(amount) AS totalAmount FROM payments;
    ```
 
-6. **Obtener la cantidad total de empleados:**
+6. ***Obtener la cantidad total de empleados:***
 
    ```
    SELECT COUNT(*) AS totalEmployees FROM employees;
@@ -122,19 +122,19 @@
    SELECT AVG(quantityOrdered) AS averageQuantityOrdered FROM orderdetails;
    ```
 
-8. **Encontrar el precio total de todos los productos:**
+8. ***Encontrar el precio total de todos los productos:***
 
    ```
    SELECT SUM(buyPrice) AS totalBuyPrice FROM products;
    ```
 
-9. **Calcular el promedio del precio sugerido (MSRP) de los productos:**
+9. ***Calcular el promedio del precio sugerido (MSRP) de los productos:***
 
    ```
    SELECT AVG(MSRP) AS averageMSRP FROM products;
    ```
 
-10. **Contar la cantidad de empleados por título de trabajo:**
+10. ***Contar la cantidad de empleados por título de trabajo:***
 
 ```
 SELECT jobTitle, COUNT(*) AS quantityEmployees FROM employees GROUP BY jobTitle;
@@ -154,7 +154,7 @@ SELECT jobTitle, COUNT(*) AS quantityEmployees FROM employees GROUP BY jobTitle;
    SELECT country, AVG(creditLimit) AS averageCreditLimit FROM customers GROUP BY country;
    ```
 
-3. **Calcular el total de órdenes realizadas por cada cliente:**
+3. ***Calcular el total de órdenes realizadas por cada cliente:***
 
    ```
    SELECT customerNumber, COUNT(*) AS quantityOrders FROM orders GROUP BY customerNumber;
@@ -177,13 +177,13 @@ SELECT jobTitle, COUNT(*) AS quantityEmployees FROM employees GROUP BY jobTitle;
    
    ```
 
-6. **Obtener el promedio de la cantidad de productos en stock por línea de productos:**
+6. ***Obtener el promedio de la cantidad de productos en stock por línea de productos:***
 
    ```
    SELECT productLine, AVG(quantityInStock) AS averageQuantityInStock FROM products GROUP BY productLine;
    ```
 
-7. **Calcular el total de pagos recibidos por cada país:**
+7. ***Calcular el total de pagos recibidos por cada país:***
 
    ```
    SELECT
@@ -234,7 +234,7 @@ SELECT jobTitle, COUNT(*) AS quantityEmployees FROM employees GROUP BY jobTitle;
     
     ```
 
-13. **Obtener el promedio del precio de compra de los productos por línea de productos:**
+13. ***Obtener el promedio del precio de compra de los productos por línea de productos:*** 
 
     ```
     SELECT productLine, AVG(buyPrice) AS averageBuyPrice FROM products GROUP BY productLine;
