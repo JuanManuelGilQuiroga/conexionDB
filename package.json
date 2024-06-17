@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "mysql2": "^3.10.1"
+  },
+  "scripts": {
+    "dev": "node js/main.js"
+  },
+  "type": "module"
+}
