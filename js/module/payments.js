@@ -41,3 +41,25 @@ export const getTotalQuantityOfPaymentsByCountries = async()=>{
     GROUP BY country;`);
     return result;
 }
+
+//15. **Calcular el total de pagos recibidos por cada vendedor:**
+export const getTotalPaymentReceivedByEachSalesRep = async() => {
+    const [result] = await connection.query(`
+    SELECT e.employeeNumber, e.firstName, COUNT(*)
+    FROM payments p
+    INNER JOIN customers c USING(customerNumber)
+    INNER JOIN employees e ON e.employeeNumber = c.salesRepEmployeeNumber 
+    GROUP BY e.employeeNumber, e.firstName;
+    `);
+    return result;
+}
+
+//19. **Obtener el total de pagos realizados en cada año:**
+export const getTotalPaymentByYear = async()=>{
+    const [result] = await connection.query(`
+    SELECT YEAR(paymentDate), SUM(amount)
+    FROM payments 
+    GROUP BY YEAR(paymentDate);
+    `);
+    return result;
+}

@@ -24,4 +24,27 @@ export const getQuantityOfEmployeesByJobTitle = async() => {
     return result;
 }
 
-//
+//14. **Encontrar la cantidad total de productos vendidos por cada vendedor:**
+export const getQuantityOfProductsSoldByEachSalesRep = async() => {
+    const [result] = await connection.query(`
+    SELECT e.employeeNumber, e.firstName, SUM(od.quantityOrdered)
+    FROM employees e
+    INNER JOIN customers c ON e.employeeNumber = c.salesRepEmployeeNumber 
+    INNER JOIN orders o USING(customerNumber)
+    INNER JOIN orderdetails od USING(orderNumber)
+    GROUP BY e.employeeNumber, e.firstName;
+    `);
+    return result;
+}
+
+//16. **Obtener el promedio del límite de crédito de los clientes atendidos por cada vendedor:**
+export const getAverageCreditLimitByEachSalesRep = async() => {
+    const [result] = await connection.query(`
+    SELECT e.employeeNumber,  e.firstName, AVG(c.creditLimit) 
+    FROM employees e
+    INNER JOIN customers c ON e.employeeNumber = c.salesRepEmployeeNumber 
+    GROUP BY e.employeeNumber, e.firstName;
+    `);
+    return result;
+}
+

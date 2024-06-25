@@ -17,3 +17,20 @@ export const getAllCustomersAverageCreditLimitByCountry = async()=>{
     let [result] = await connection.query(`SELECT country, AVG(creditLimit) AS averageCreditLimit FROM customers GROUP BY country;`);
     return result;
 }
+
+//18. **Calcular la cantidad media de productos pedidos por cada cliente:**
+export const getAverageProductsOrderedByCustomer = async()=>{
+    let [result] = await connection.query(`
+    SELECT c.customerName, AVG(totalProducts) AS mediaQuatityClientOrder
+    FROM customers c
+    INNER JOIN (SELECT o.customerNumber, SUM(od.quantityOrdered)
+    AS totalProducts
+    FROM orders o
+    INNER JOIN orderdetails od USING(orderNumber)
+    GROUP BY o.customerNumber) 
+    AS clientOrders
+    USING(customerNumber)
+    GROUP BY c.customerName;
+    `);
+    return result;
+}
